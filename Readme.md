@@ -7,7 +7,7 @@ This repository contains tests implemented using `pytest` to test an API Gateway
 1. Clone this repository:
 
 ```bash
-$ git clone https://github.com/your-username/your-repository.git
+$ git clone https://github.com/watcharap0n/test-ndvi-gateway.git
 $ cd your-repository
 ```
 
