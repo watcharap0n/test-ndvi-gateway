@@ -8,7 +8,7 @@ This repository contains tests implemented using `pytest` to test an API Gateway
 
 ```bash
 $ git clone https://github.com/watcharap0n/test-ndvi-gateway.git
-$ cd your-repository
+$ cd test-ndvi-gateway
 ```
 
 1. Install the require dependencies
