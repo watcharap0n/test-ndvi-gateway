@@ -52,7 +52,7 @@ jobs:
   testByVersion:
     name: Run test with tox
     runs-on: ubuntu-latest
-    needs: unittest
+    needs: pytest
     environment: Dev
 
     steps:
