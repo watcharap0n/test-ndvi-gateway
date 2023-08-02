@@ -51,7 +51,7 @@ jobs:
           mv pytest-report.html $GITHUB_WORKSPACE
 
       - name: Publish HTML report
-        always()
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: pytest-report
