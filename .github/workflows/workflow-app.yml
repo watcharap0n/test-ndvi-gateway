@@ -50,13 +50,14 @@ jobs:
         run: |
           echo "$PYTHONPATH $PWD $POLYGON $GITHUB_WORKSPACE"
           pytest tests_ndvi/conftest.py -vv -o log_cli=true --html=pytest-report.html
+          mv pytest-report.html $GITHUB_WORKSPACE # Move the HTML report to the workspace
 
       - name: Publish HTML report
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: code-pytest-report
-          path: pytest-report.html
+          name: pytest-report
+          path: $GITHUB_WORKSPACE/pytest-report.html
 
 #  testByVersion:
 #    name: Run test with tox
