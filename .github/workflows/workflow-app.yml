@@ -58,6 +58,9 @@ jobs:
           name: pytest-report
           path: pytest-report.html
 
+      - name: Install boto3
+        run: pip install boto3
+
       - name: Save pytest HTML report to S3 bucket
         if: always() # Always execute this step, regardless of previous step outcome
         env:
