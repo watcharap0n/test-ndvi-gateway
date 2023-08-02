@@ -53,12 +53,10 @@ jobs:
 
       - name: Publish HTML report
         if: always()
-        uses: pmeier/pytest-results-action@main
+        uses: actions/upload-artifact@v3
         with:
+          name: code-pytest-report
           path: pytest-report.html
-          summary: true
-          display-options: fEX
-          fail-on-empty: true
 
 #  testByVersion:
 #    name: Run test with tox
