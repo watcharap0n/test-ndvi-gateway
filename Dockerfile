@@ -1,6 +1,6 @@
 FROM python:3.10-slim
 
-WORKDIR unit-test-service
+WORKDIR test-ndvi-gateway
 
 COPY ./requirements.txt .
 
@@ -11,9 +11,8 @@ RUN apt-get update \
 RUN pip install -r requirements.txt \
     && rm -rf /root/.cache/pip
 
-COPY server .
-COPY tests_pytest .
+COPY tests_ndvi .
 
 WORKDIR ../
 
-CMD ["uvicorn", "unit-test-service.main:app", "--proxy-headers", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["pytest", "tests_ndvi/conftest.py", "-vv", "-o", "log_cli=true", "--html=report.html"]
