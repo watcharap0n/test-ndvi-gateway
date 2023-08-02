@@ -13,8 +13,8 @@ class TestNdivGatewayStack(Stack):
         super().__init__(scope, construct_id, **kwargs)
 
         common_layer = _lambda.LayerVersion(
-            self, 'common_package_layer',
-            code=_lambda.Code.from_asset('dependencies/common'),
+            self, 'testing_package_layer',
+            code=_lambda.Code.from_asset('dependencies/testing_package'),
             compatible_runtimes=[_lambda.Runtime.PYTHON_3_9],
             compatible_architectures=[_lambda.Architecture.X86_64]
         )
@@ -28,6 +28,7 @@ class TestNdivGatewayStack(Stack):
             memory_size=256,
             layers=[common_layer],
         )
+
 
         handler.add_to_role_policy(iam.PolicyStatement(
             effect=iam.Effect.ALLOW,
