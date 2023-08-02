@@ -2,6 +2,9 @@
 
 This repository contains tests implemented using `pytest` to test an API Gateway with AWS Lambda backend. The API Gateway provides endpoints to access coverage data related to NDVI (Normalized Difference Vegetation Index) for different geographic positions and areas.
 
+
+[![Build Status](https://github.com/watcharap0n/test-ndvi-gateway/actions/workflows/workflow-app.yml/badge.svg)](https://github.com/watcharap0n/test-ndvi-gateway/actions/workflows/workflow-app.yml)
+
 ## Setup
 
 1. Clone this repository:

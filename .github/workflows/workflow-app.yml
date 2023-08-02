@@ -1,4 +1,4 @@
-name: Test Framework Comparisons
+name: Testing NDVI APIGateway
 
 on:
   push:
@@ -47,7 +47,7 @@ jobs:
 
         run: |
           echo "$PYTHONPATH $PWD $POLYGON"
-          pytest unit-test-service/tests_pytest/conftest.py -vv -o log_cli=true
+          pytest tests-ndiv/conftest.py -vv -o log_cli=true
 
   testByVersion:
     name: Run test with tox
