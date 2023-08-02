@@ -47,12 +47,11 @@ jobs:
 
         run: |
           echo "$PYTHONPATH $PWD $POLYGON"
-          pytest tests-ndiv/conftest.py -vv -o log_cli=true
+          pytest tests_ndvi/conftest.py -vv -o log_cli=true --html=report.html
 
   testByVersion:
     name: Run test with tox
     runs-on: ubuntu-latest
-    needs: pytest
     environment: Dev
 
     steps:
