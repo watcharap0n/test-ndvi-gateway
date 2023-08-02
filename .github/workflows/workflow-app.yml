@@ -50,7 +50,8 @@ jobs:
           pytest tests_ndvi/conftest.py -vv -o log_cli=true --html=pytest-report.html
           mv pytest-report.html $GITHUB_WORKSPACE
 
-      - name: Publish test result
+      - name: Publish HTML report
+        always()
         uses: actions/upload-artifact@v2
         with:
           name: pytest-report
