@@ -50,15 +50,34 @@ jobs:
         run: |
           echo "$PYTHONPATH $PWD $POLYGON $GITHUB_WORKSPACE"
           pytest tests_ndvi/conftest.py -vv -o log_cli=true --html=pytest-report.html
-          mv pytest-report.html $GITHUB_WORKSPACE # Move the HTML report to the workspace
 
       - name: Publish HTML report
         if: always()
         uses: actions/upload-artifact@v3
         with:
           name: pytest-report
-          path: $GITHUB_WORKSPACE/pytest-report.html
+          path: pytest-report.html
 
+      - name: Save pytest HTML report to S3 bucket
+        if: always() # Always execute this step, regardless of previous step outcome
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_DEFAULT_REGION }}
+          S3_BUCKET_NAME: watcharapon-test-bucket
+        run: |
+          python - << EOF
+          import boto3
+          import os
+          
+          s3 = boto3.client('s3', aws_access_key_id=os.environ['AWS_ACCESS_KEY_ID'], aws_secret_access_key=os.environ['AWS_SECRET_ACCESS_KEY'])
+          bucket_name = os.environ['S3_BUCKET_NAME']
+          report_file = 'pytest-report.html'
+          
+          with open(report_file, 'rb') as file:
+              s3.upload_fileobj(file, bucket_name, report_file, ExtraArgs={'ContentType': 'text/html'})
+          
+          EOF
 #  testByVersion:
 #    name: Run test with tox
 #    runs-on: ubuntu-latest
