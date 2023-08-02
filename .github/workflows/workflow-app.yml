@@ -1,0 +1,107 @@
+name: Test Framework Comparisons
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  pytest:
+    name: Linter and Pytest
+    runs-on: ubuntu-latest
+    environment: Dev
+
+    steps:
+      - name: Linter & Pytest
+        env:
+          GITHUB_RUN_ID: ${{ secrets.GITHUB_RUN_ID }}
+          GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+          GITHUB_EVENT_NAME: ${{ secrets.GITHUB_EVENT_NAME }}
+        run: echo "$GITHUB_RUN_ID $GITHUB_REPOSITORY $GITHUB_EVENT_NAME"
+
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.10.12
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10.12"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8 pytest
+          pip install cryptography==38.0.4
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Unit Test with pytest
+        env:
+          PYTHONPATH: ${{ vars.PYTHONPATH }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          POLYGON: ${{ vars.POLYGON }}
+          API_GATEWAY_URL: ${{ secrets.API_GATEWAY_URL }}
+
+        run: |
+          echo "$PYTHONPATH $PWD $POLYGON"
+          pytest unit-test-service/tests_pytest/conftest.py -vv -o log_cli=true
+
+  testByVersion:
+    name: Run test with tox
+    runs-on: ubuntu-latest
+    needs: unittest
+    environment: Dev
+
+    steps:
+      - name: Build Python
+        env:
+          GITHUB_RUN_ID: ${{ secrets.GITHUB_RUN_ID }}
+          GITHUB_REPOSITORY: ${{ secrets.GITHUB_REPOSITORY }}
+          GITHUB_EVENT_NAME: ${{ secrets.GITHUB_EVENT_NAME }}
+        run: echo "$GITHUB_RUN_ID $GITHUB_REPOSITORY $GITHUB_EVENT_NAME"
+
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.9.14
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.9.14"
+
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.10.12
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10.12"
+
+      - uses: actions/checkout@v2
+      - name: Set up Python 3.11.4
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.11.4"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+          pip install cryptography==38.0.4
+          if [ -f unit-test-service/requirements.txt ]; then pip install -r unit-test-service/requirements.txt; fi
+
+      - name: Lint with flake8
+        run: |
+          # stop the build if there are Python syntax errors or undefined names
+          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
+          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+
+      - name: Run Test with tox
+        env:
+          PYTHONPATH: ${{ vars.PYTHONPATH }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          POLYGON: ${{ vars.POLYGON }}
+          API_GATEWAY_URL: ${{ secrets.API_GATEWAY_URL }}
+
+        run: |
+          echo "$PYTHONPATH $POLYGON $PWD"
+          tox -r
