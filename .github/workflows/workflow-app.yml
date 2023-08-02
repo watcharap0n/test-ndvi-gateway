@@ -47,7 +47,14 @@ jobs:
 
         run: |
           echo "$PYTHONPATH $PWD $POLYGON"
-          pytest tests_ndvi/conftest.py -vv -o log_cli=true --html=report.html
+          pytest tests_ndvi/conftest.py -vv -o log_cli=true --html=pytest-report.html
+          mv pytest-report.html $GITHUB_WORKSPACE
+
+      - name: Publish test result
+        uses: actions/upload-artifact@v2
+        with:
+          name: pytest-report
+          path: $GITHUB_WORKSPACE/pytest-report.html
 
   testByVersion:
     name: Run test with tox
@@ -85,7 +92,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install flake8
           pip install cryptography==38.0.4
-          if [ -f unit-test-service/requirements.txt ]; then pip install -r unit-test-service/requirements.txt; fi
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Lint with flake8
         run: |
