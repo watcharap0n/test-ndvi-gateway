@@ -26,6 +26,7 @@ def ndvi_position_response_format_json_coverage():
 
 def test_api_gateway_ndiv_position_response_time_within_limit():
     url_to_test = API_GATEWAY_URL + f'/position?coords={PARAM_POLYGON}&datetime={DATETIME}&csr={CSR}'
+    LOGGER.info(f'url: {url_to_test}')
     response = requests.get(url_to_test, headers={'User-Agent': ua.chrome, 'x-api-key': X_API_KEY})
     assert response.status_code == 200, f'API request failed with status code {response.status_code}'
     # Check if the response time is within 3 seconds
@@ -35,11 +36,7 @@ def test_api_gateway_ndiv_position_response_time_within_limit():
 def test_api_gateway_ndvi_position_status_success():
     # Check status code success with 200OK
     url_to_test = API_GATEWAY_URL + f'/position?coords={PARAM_POLYGON}&datetime={DATETIME}&csr={CSR}'
-    LOGGER.info(f'url: {url_to_test}')
     response = requests.get(url_to_test, headers={'User-Agent': ua.chrome, 'x-api-key': X_API_KEY})
-    LOGGER.info(
-        f"the response error code is {response.status_code}\n"
-        f"the json of the response is {json.dumps(response.json(), indent=2)}")
     assert response.status_code == 200
 
 
@@ -101,6 +98,7 @@ def ndvi_area_response_format_json_coverage():
 
 def test_api_gateway_ndiv_area_response_time_within_limit():
     url_to_test = API_GATEWAY_URL + f'/area?coords={PARAM_POLYGON}&datetime={DATETIME}&csr={CSR}'
+    LOGGER.info(f'url: {url_to_test}')
     response = requests.get(url_to_test, headers={'User-Agent': ua.chrome, 'x-api-key': X_API_KEY})
     assert response.status_code == 200, f'API request failed with status code {response.status_code}'
     # Check if the response time is within 3 seconds
@@ -110,11 +108,7 @@ def test_api_gateway_ndiv_area_response_time_within_limit():
 def test_api_gateway_ndvi_area_status_success():
     # Check status code success with 200OK
     url_to_test = API_GATEWAY_URL + f'/area?coords={PARAM_POLYGON}&datetime={DATETIME}&csr={CSR}'
-    LOGGER.info(f'url: {url_to_test}')
     response = requests.get(url_to_test, headers={'User-Agent': ua.chrome, 'x-api-key': X_API_KEY})
-    LOGGER.info(
-        f"the response error code is {response.status_code}\n"
-        f"the json of the response is {json.dumps(response.json(), indent=2)}")
     assert response.status_code == 200
 
 
