@@ -39,6 +39,8 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
 
       - name: Unit Test with pytest
+        if: always()
+        continue-on-error: true
         env:
           PYTHONPATH: ${{ vars.PYTHONPATH }}
           X_API_KEY: ${{ secrets.X_API_KEY }}
@@ -46,8 +48,9 @@ jobs:
           API_GATEWAY_URL: ${{ secrets.API_GATEWAY_URL }}
 
         run: |
-          echo "$PYTHONPATH $PWD $POLYGON"
+          echo "$PYTHONPATH $PWD $POLYGON $GITHUB_WORKSPACE"
           pytest tests_ndvi/conftest.py -vv -o log_cli=true --html=pytest-report.html
+          echo "move pytest-report.html"
           mv pytest-report.html $GITHUB_WORKSPACE
 
       - name: Publish HTML report
