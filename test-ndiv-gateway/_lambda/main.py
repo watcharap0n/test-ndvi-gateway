@@ -1,12 +1,19 @@
 import subprocess
+import sys
 
 
 def lambda_handler(event, context):
     # Define the pytest command and arguments
-    command = ["pytest", "tests_ndvi/conftest.py", "-vv", "-o", "log_cli=true", "--html=report.html"]
+    command = ['pip', 'list']
+    result_package = subprocess.run(command, capture_output=True, text=True)
+    list_package = result_package.stdout
+    print(list_package)
 
     try:
+        layer_path = '/opt/python'
+        sys.path.append(layer_path)
         # Execute the pytest command
+        command = ["pytest", "conftest.py", "-vv", "-o", "log_cli=true", "--html=report.html"]
         result = subprocess.run(command, capture_output=True, text=True)
         output = result.stdout
 
