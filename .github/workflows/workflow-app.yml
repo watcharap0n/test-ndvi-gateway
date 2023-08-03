@@ -62,7 +62,7 @@ jobs:
   dockerImage:
     name: Push Docker image to Docker hub
     runs-on: ubuntu-latest
-    environment: Docker
+    environment: Dev
     needs: pytest
     env:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
