@@ -1,6 +1,6 @@
 FROM python:3.10-slim
 
-WORKDIR test-ndvi-gateway
+WORKDIR app
 
 COPY ./requirements.txt .
 
@@ -15,4 +15,4 @@ COPY tests_ndvi .
 
 WORKDIR ../
 
-CMD ["pytest", "tests_ndvi/conftest.py", "-vv", "-o", "log_cli=true", "--html=report.html"]
+CMD ["pytest", "app/conftest.py", "-vv", "-o", "log_cli=true", "--html=report.html"]
