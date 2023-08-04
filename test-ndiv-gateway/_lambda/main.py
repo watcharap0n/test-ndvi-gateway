@@ -1,32 +1,49 @@
-import subprocess
-import sys
+import json
+import os
+from datetime import datetime
+
+import boto3
+import pytest
+import pytz
+from pytest_jsonreport.plugin import JSONReport
 
 
 def lambda_handler(event, context):
-    # Define the pytest command and arguments
-    command = ['pip', 'list']
-    result_package = subprocess.run(command, capture_output=True, text=True)
-    list_package = result_package.stdout
-    print(list_package)
-
     try:
-        layer_path = '/opt/python'
-        sys.path.append(layer_path)
-        # Execute the pytest command
-        command = ["pytest", "conftest.py", "-vv", "-o", "log_cli=true", "--html=report.html"]
-        result = subprocess.run(command, capture_output=True, text=True)
-        output = result.stdout
+        print('Starting testing with pytest.')
 
-        # Log the output or send it to CloudWatch Logs or S3 for analysis
-        print(output)
+        # Run pytest path conftest.py & keep report for output
+        plugin = JSONReport()
+        pytest.main([
+            '--json-report-file=none',
+            'conftest.py'
+        ],
+            plugins=[plugin])
+
+        bucket = os.environ.get('BUCKET')
+
+        # define key path s3 report/{collection}/report.json
+        tz = pytz.timezone('Asia/Bangkok')
+        dt = datetime.now(tz)
+        formatted_string = dt.strftime('%Y-%m-%dT%H:%M')
+
+        key = f'report/{os.environ.get("COLLECTION")}/report_{formatted_string}.json'
+        plugin.report['datetime'] = formatted_string
+
+        # save file json to s3 bucket
+        s3_client = boto3.client('s3')
+        s3_client.put_object(Bucket=bucket, Key=key, Body=json.dumps(plugin.report))
+
         return {
-            "statusCode": 200,
-            "body": "Tests executed successfully.",
+            'statusCode': 200,
+            'body': {
+                'summary': plugin.report['summary'],
+                'duration': plugin.report['duration']
+            }
         }
+
     except Exception as e:
-        # Log any errors and return an error response
-        print(str(e))
         return {
-            "statusCode": 500,
-            "body": "Error executing tests.",
+            'statusCode': 500,
+            'body': f'Internal Server error for detail {e}'
         }
