@@ -19,6 +19,8 @@ DATETIME = '2022-01-01T00:00Z/2022-12-31T00:00Z'
 @pytest.fixture
 def ndvi_position_response_format_json_coverage():
     # initialize response json
+    url_to_test = API_GATEWAY_URL + f'/position?coords={PARAM_POLYGON}&datetime={DATETIME}&csr={CSR}'
+    response = requests.get(url_to_test, headers={'User-Agent': ua.chrome, 'x-api-key': X_API_KEY})
     yield response.json()
 
 
@@ -41,11 +43,10 @@ def test_api_gateway_ndvi_position_status_success():
 def test_api_gateway_ndvi_position_coverage_json_response_is_valid_json(ndvi_position_response_format_json_coverage):
     # Check if the API response in valid JSON format
     try:
-        url_to_test = API_GATEWAY_URL + f'/position?coords={PARAM_POLYGON}&datetime={DATETIME}&csr={CSR}'
-        response = requests.get(url_to_test, headers={'User-Agent': ua.chrome, 'x-api-key': X_API_KEY})
         json.loads(json.dumps(ndvi_position_response_format_json_coverage))
     except json.JSONDecodeError:
         assert False, "Invalid JSON format in the coverageJson response."
+
 
 
 def test_api_gateway_ndvi_position_coverage_json_response_has_expected_keys(
