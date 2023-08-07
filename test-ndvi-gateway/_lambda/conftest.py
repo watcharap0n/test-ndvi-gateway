@@ -48,7 +48,6 @@ def test_api_gateway_ndvi_position_coverage_json_response_is_valid_json(ndvi_pos
         assert False, "Invalid JSON format in the coverageJson response."
 
 
-
 def test_api_gateway_ndvi_position_coverage_json_response_has_expected_keys(
         ndvi_position_response_format_json_coverage):
     # Define the expected keys in the coverageJson response
