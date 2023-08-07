@@ -27,7 +27,7 @@ def lambda_handler(event, context):
         dt = datetime.now(tz)
         formatted_string = dt.strftime('%Y-%m-%dT%H:%M')
 
-        key = f'report/{os.environ.get("COLLECTION")}/report_{formatted_string}.json'
+        key = f'report/{os.environ.get("COLLECTION")}/report.json'
         plugin.report['datetime'] = formatted_string
 
         # save file json to s3 bucket

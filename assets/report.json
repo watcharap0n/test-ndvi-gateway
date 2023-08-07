@@ -1,0 +1,446 @@
+{
+  "created": 1691131487.576658,
+  "duration": 48.31930899620056,
+  "exitcode": 1,
+  "root": "/Users/kmac15/PycharmProjects/test-ndvi-gateway/test-ndiv-gateway/_lambda",
+  "environment": {},
+  "summary": {
+    "failed": 2,
+    "passed": 10,
+    "total": 12,
+    "collected": 12
+  },
+  "collectors": [
+    {
+      "nodeid": "",
+      "outcome": "passed",
+      "result": [
+        {
+          "nodeid": "conftest.py",
+          "type": "Module"
+        }
+      ]
+    },
+    {
+      "nodeid": "conftest.py",
+      "outcome": "passed",
+      "result": [
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndiv_position_response_time_within_limit",
+          "type": "Function",
+          "lineno": 26
+        },
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndvi_position_status_success",
+          "type": "Function",
+          "lineno": 35
+        },
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndvi_position_coverage_json_response_is_valid_json",
+          "type": "Function",
+          "lineno": 42
+        },
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndvi_position_coverage_json_response_has_expected_keys",
+          "type": "Function",
+          "lineno": 50
+        },
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndvi_position_coverage_json_ranges_have_expected_structure",
+          "type": "Function",
+          "lineno": 60
+        },
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndvi_position_coverage_json_values_have_expected_length",
+          "type": "Function",
+          "lineno": 77
+        },
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndiv_area_response_time_within_limit",
+          "type": "Function",
+          "lineno": 98
+        },
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndvi_area_status_success",
+          "type": "Function",
+          "lineno": 107
+        },
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndvi_area_coverage_json_response_is_valid_json",
+          "type": "Function",
+          "lineno": 114
+        },
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndvi_area_coverage_json_response_has_expected_keys",
+          "type": "Function",
+          "lineno": 122
+        },
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndvi_area_coverage_json_ranges_have_expected_structure",
+          "type": "Function",
+          "lineno": 131
+        },
+        {
+          "nodeid": "conftest.py::test_api_gateway_ndvi_coverage_json_range_values_are_float_or_null",
+          "type": "Function",
+          "lineno": 147
+        }
+      ]
+    }
+  ],
+  "tests": [
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndiv_position_response_time_within_limit",
+      "lineno": 26,
+      "outcome": "failed",
+      "keywords": [
+        "test_api_gateway_ndiv_position_response_time_within_limit",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 0.00019799999427050352,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 7.528130457998486,
+        "outcome": "failed",
+        "crash": {
+          "path": "/Users/kmac15/PycharmProjects/test-ndvi-gateway/test-ndiv-gateway/_lambda/conftest.py",
+          "lineno": 33,
+          "message": "AssertionError: API response time exceeds 3 seconds (actual: 7.397592 seconds)\nassert 7.397592 <= 3\n +  where 7.397592 = <built-in method total_seconds of datetime.timedelta object at 0x10478b060>()\n +    where <built-in method total_seconds of datetime.timedelta object at 0x10478b060> = datetime.timedelta(seconds=7, microseconds=397592).total_seconds\n +      where datetime.timedelta(seconds=7, microseconds=397592) = <Response [200]>.elapsed"
+        },
+        "traceback": [
+          {
+            "path": "conftest.py",
+            "lineno": 33,
+            "message": "AssertionError"
+          }
+        ],
+        "log": [
+          {
+            "name": "_lambda.conftest",
+            "msg": "url: https://eoapi-dev.thaicom.io/main/collections/sentinel-2-l2a-ndvi/position?coords=POLYGON ((99.6396462 14.9847325, 99.6393786 14.9847605, 99.637582 14.985196, 99.6377248 14.9855344, 99.6378874 14.9854322, 99.6384408 14.9854274, 99.6390221 14.9853392, 99.640132 14.985232, 99.6396462 14.9847325))&datetime=2022-01-01T00:00Z/2022-12-31T00:00Z&csr=4326",
+            "args": null,
+            "levelname": "INFO",
+            "levelno": 20,
+            "pathname": "/Users/kmac15/PycharmProjects/test-ndvi-gateway/test-ndiv-gateway/_lambda/conftest.py",
+            "filename": "conftest.py",
+            "module": "conftest",
+            "exc_info": null,
+            "exc_text": null,
+            "stack_info": null,
+            "lineno": 29,
+            "funcName": "test_api_gateway_ndiv_position_response_time_within_limit",
+            "created": 1691131439.2658072,
+            "msecs": 265.0,
+            "relativeCreated": 200.7882595062256,
+            "thread": 8326880064,
+            "threadName": "MainThread",
+            "processName": "MainProcess",
+            "process": 55161,
+            "asctime": "2023-08-04 13:43:59"
+          }
+        ],
+        "longrepr": "def test_api_gateway_ndiv_position_response_time_within_limit():\n        url_to_test = API_GATEWAY_URL + f'/position?coords={PARAM_POLYGON}&datetime={DATETIME}&csr={CSR}'\n        LOGGER.info(f'url: {url_to_test}')\n        response = requests.get(url_to_test, headers={'User-Agent': ua.chrome, 'x-api-key': X_API_KEY})\n        assert response.status_code == 200, f'API request failed with status code {response.status_code}'\n        # Check if the response time is within 3 seconds\n>       assert response.elapsed.total_seconds() <= 3, f\"API response time exceeds 3 seconds (actual: {response.elapsed.total_seconds()} seconds)\"\nE       AssertionError: API response time exceeds 3 seconds (actual: 7.397592 seconds)\nE       assert 7.397592 <= 3\nE        +  where 7.397592 = <built-in method total_seconds of datetime.timedelta object at 0x10478b060>()\nE        +    where <built-in method total_seconds of datetime.timedelta object at 0x10478b060> = datetime.timedelta(seconds=7, microseconds=397592).total_seconds\nE        +      where datetime.timedelta(seconds=7, microseconds=397592) = <Response [200]>.elapsed\n\nconftest.py:33: AssertionError"
+      },
+      "teardown": {
+        "duration": 0.00012937499559484422,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndvi_position_status_success",
+      "lineno": 35,
+      "outcome": "passed",
+      "keywords": [
+        "test_api_gateway_ndvi_position_status_success",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 8.624998736195266e-05,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 3.7919937499973457,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.0006047500064596534,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndvi_position_coverage_json_response_is_valid_json",
+      "lineno": 42,
+      "outcome": "passed",
+      "keywords": [
+        "test_api_gateway_ndvi_position_coverage_json_response_is_valid_json",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 3.2831649169966113,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.0019231670012231916,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.0017342919891234487,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndvi_position_coverage_json_response_has_expected_keys",
+      "lineno": 50,
+      "outcome": "passed",
+      "keywords": [
+        "test_api_gateway_ndvi_position_coverage_json_response_has_expected_keys",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 3.2628935829852708,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.0004875830200035125,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.0017197919951286167,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndvi_position_coverage_json_ranges_have_expected_structure",
+      "lineno": 60,
+      "outcome": "passed",
+      "keywords": [
+        "test_api_gateway_ndvi_position_coverage_json_ranges_have_expected_structure",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 3.875962916004937,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.0001627919846214354,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.0009170419943984598,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndvi_position_coverage_json_values_have_expected_length",
+      "lineno": 77,
+      "outcome": "passed",
+      "keywords": [
+        "test_api_gateway_ndvi_position_coverage_json_values_have_expected_length",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 3.8703004580165725,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.0006006250041536987,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.0021220000053290278,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndiv_area_response_time_within_limit",
+      "lineno": 98,
+      "outcome": "failed",
+      "keywords": [
+        "test_api_gateway_ndiv_area_response_time_within_limit",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 0.00021058300626464188,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 3.619010333000915,
+        "outcome": "failed",
+        "crash": {
+          "path": "/Users/kmac15/PycharmProjects/test-ndvi-gateway/test-ndiv-gateway/_lambda/conftest.py",
+          "lineno": 105,
+          "message": "AssertionError: API response time exceeds 3 seconds (actual: 3.493619 seconds)\nassert 3.493619 <= 3\n +  where 3.493619 = <built-in method total_seconds of datetime.timedelta object at 0x10478bf60>()\n +    where <built-in method total_seconds of datetime.timedelta object at 0x10478bf60> = datetime.timedelta(seconds=3, microseconds=493619).total_seconds\n +      where datetime.timedelta(seconds=3, microseconds=493619) = <Response [200]>.elapsed"
+        },
+        "traceback": [
+          {
+            "path": "conftest.py",
+            "lineno": 105,
+            "message": "AssertionError"
+          }
+        ],
+        "log": [
+          {
+            "name": "_lambda.conftest",
+            "msg": "url: https://eoapi-dev.thaicom.io/main/collections/sentinel-2-l2a-ndvi/area?coords=POLYGON ((99.6396462 14.9847325, 99.6393786 14.9847605, 99.637582 14.985196, 99.6377248 14.9855344, 99.6378874 14.9854322, 99.6384408 14.9854274, 99.6390221 14.9853392, 99.640132 14.985232, 99.6396462 14.9847325))&datetime=2022-01-01T00:00Z/2022-12-31T00:00Z&csr=4326",
+            "args": null,
+            "levelname": "INFO",
+            "levelno": 20,
+            "pathname": "/Users/kmac15/PycharmProjects/test-ndvi-gateway/test-ndiv-gateway/_lambda/conftest.py",
+            "filename": "conftest.py",
+            "module": "conftest",
+            "exc_info": null,
+            "exc_text": null,
+            "stack_info": null,
+            "lineno": 101,
+            "funcName": "test_api_gateway_ndiv_area_response_time_within_limit",
+            "created": 1691131464.950881,
+            "msecs": 950.0,
+            "relativeCreated": 25885.862112045288,
+            "thread": 8326880064,
+            "threadName": "MainThread",
+            "processName": "MainProcess",
+            "process": 55161,
+            "asctime": "2023-08-04 13:44:24"
+          }
+        ],
+        "longrepr": "def test_api_gateway_ndiv_area_response_time_within_limit():\n        url_to_test = API_GATEWAY_URL + f'/area?coords={PARAM_POLYGON}&datetime={DATETIME}&csr={CSR}'\n        LOGGER.info(f'url: {url_to_test}')\n        response = requests.get(url_to_test, headers={'User-Agent': ua.chrome, 'x-api-key': X_API_KEY})\n        assert response.status_code == 200, f'API request failed with status code {response.status_code}'\n        # Check if the response time is within 3 seconds\n>       assert response.elapsed.total_seconds() <= 3, f\"API response time exceeds 3 seconds (actual: {response.elapsed.total_seconds()} seconds)\"\nE       AssertionError: API response time exceeds 3 seconds (actual: 3.493619 seconds)\nE       assert 3.493619 <= 3\nE        +  where 3.493619 = <built-in method total_seconds of datetime.timedelta object at 0x10478bf60>()\nE        +    where <built-in method total_seconds of datetime.timedelta object at 0x10478bf60> = datetime.timedelta(seconds=3, microseconds=493619).total_seconds\nE        +      where datetime.timedelta(seconds=3, microseconds=493619) = <Response [200]>.elapsed\n\nconftest.py:105: AssertionError"
+      },
+      "teardown": {
+        "duration": 0.00016458300524391234,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndvi_area_status_success",
+      "lineno": 107,
+      "outcome": "passed",
+      "keywords": [
+        "test_api_gateway_ndvi_area_status_success",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 9.312501060776412e-05,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 3.5486139160057064,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.0002121669822372496,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndvi_area_coverage_json_response_is_valid_json",
+      "lineno": 114,
+      "outcome": "passed",
+      "keywords": [
+        "test_api_gateway_ndvi_area_coverage_json_response_is_valid_json",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 4.947668125008931,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.0033714579767547548,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.0007144999981392175,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndvi_area_coverage_json_response_has_expected_keys",
+      "lineno": 122,
+      "outcome": "passed",
+      "keywords": [
+        "test_api_gateway_ndvi_area_coverage_json_response_has_expected_keys",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 3.598613584006671,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 9.354198118671775e-05,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.0005238330049905926,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndvi_area_coverage_json_ranges_have_expected_structure",
+      "lineno": 131,
+      "outcome": "passed",
+      "keywords": [
+        "test_api_gateway_ndvi_area_coverage_json_ranges_have_expected_structure",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 3.4698225840111263,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.0001160409883596003,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.0006175409944262356,
+        "outcome": "passed"
+      }
+    },
+    {
+      "nodeid": "conftest.py::test_api_gateway_ndvi_coverage_json_range_values_are_float_or_null",
+      "lineno": 147,
+      "outcome": "passed",
+      "keywords": [
+        "test_api_gateway_ndvi_coverage_json_range_values_are_float_or_null",
+        "conftest.py",
+        "__init__.py",
+        "_lambda"
+      ],
+      "setup": {
+        "duration": 3.416389582998818,
+        "outcome": "passed"
+      },
+      "call": {
+        "duration": 0.004391084017697722,
+        "outcome": "passed"
+      },
+      "teardown": {
+        "duration": 0.0011334159935358912,
+        "outcome": "passed"
+      }
+    }
+  ],
+  "datetime": "2023-08-04T13:44"
+}

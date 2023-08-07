@@ -3,11 +3,11 @@ import os
 
 import aws_cdk as cdk
 
-from test_ndiv_gateway.test_ndiv_gateway_stack import TestNdivGatewayStack
+from test_ndvi_gateway.test_ndvi_gateway_stack import TestNdivGatewayStack
 
 
 app = cdk.App()
-TestNdivGatewayStack(app, "TestNdivGatewayStack",
+TestNdivGatewayStack(app, "TestNDVIGatewayStack",
     # If you don't specify 'env', this stack will be environment-agnostic.
     # Account/Region-dependent features and context lookups will not work,
     # but a single synthesized template can be deployed anywhere.

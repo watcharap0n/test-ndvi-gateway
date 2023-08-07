@@ -1,6 +1,8 @@
 from aws_cdk import (
     aws_lambda as _lambda,
     aws_iam as iam,
+    aws_events as events,
+    aws_events_targets as targets,
     Stack,
     Duration,
 )
@@ -29,6 +31,21 @@ class TestNdivGatewayStack(Stack):
             layers=[common_layer],
         )
 
+        is_report_morning = events.Rule(
+            self, "Report in the morning",
+            schedule=events.Schedule.expression("cron(0 23 * * ? *)")
+        )
+
+        is_report_morning.add_target(
+            targets.LambdaFunction(handler=handler))
+
+        is_report_evening = events.Rule(
+            self, "Report in the evening",
+            schedule=events.Schedule.expression("cron(0 11 * * ? *)")
+        )
+
+        is_report_evening.add_target(
+            targets.LambdaFunction(handler=handler))
 
         handler.add_to_role_policy(iam.PolicyStatement(
             effect=iam.Effect.ALLOW,
